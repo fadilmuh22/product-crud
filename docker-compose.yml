@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app
+      - ./src:/app/src
       - /app/node_modules
 
 volumes:
