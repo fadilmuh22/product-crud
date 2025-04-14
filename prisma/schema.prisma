@@ -7,18 +7,12 @@
 generator client {
   provider      = "prisma-client-js"
   output        = "../generated/prisma"
-  binaryTargets = ["native", "linux-musl"]
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  products Product[]
 }
 
 model Product {
@@ -27,8 +21,6 @@ model Product {
   description String?
   price       Float
   stock       Int
-  categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

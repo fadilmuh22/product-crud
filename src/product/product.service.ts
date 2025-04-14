@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma } from 'generated/prisma';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 
@@ -12,14 +11,10 @@ export class ProductService {
     return this.prisma.product.create({ data });
   }
 
-  findAll(search?: string, categoryId?: number) {
+  findAll(search?: string) {
     return this.prisma.product.findMany({
       where: {
         name: search ? { contains: search, mode: 'insensitive' } : undefined,
-        categoryId: categoryId ? categoryId : undefined,
-      },
-      include: {
-        category: true,
       },
     });
   }
