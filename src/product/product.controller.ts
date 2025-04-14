@@ -11,6 +11,7 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('products')
 export class ProductController {
@@ -22,7 +23,15 @@ export class ProductController {
   }
 
   @Get()
-  findAll(@Query('search') search?: string) {
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Search for products by name',
+  })
+  findAll(
+    @Query('search')
+    search?: string,
+  ) {
     return this.productService.findAll(search);
   }
 
